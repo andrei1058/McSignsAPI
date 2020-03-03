@@ -66,6 +66,17 @@ public class ASign {
     }
 
     /**
+     * Set lines.
+     * This will call {@link ASign#refresh(String...)}
+     *
+     * @return instance.
+     */
+    public ASign setLines(String... lines) {
+        refresh(lines);
+        return this;
+    }
+
+    /**
      * Check if given block is this sign.
      *
      * @param block block to be checked.
