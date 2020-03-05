@@ -11,7 +11,7 @@ public abstract class SignVersion {
 
     protected SignVersion() {
         try {
-            this.serverVersion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+            this.serverVersion = Bukkit.getServer().getClass().getName().split("\\.")[3];
         } catch (ArrayIndexOutOfBoundsException ignored){
             // this will only happen with junit tests
         }
