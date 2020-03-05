@@ -3,13 +3,13 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
 
 
-image: "maven:latest"
+image: "maven:3.6.3-jdk-8"
 
 snapshot-job:
   only:
     - '/^dev-.*$/'
   script:
-    - 'mvn versions:set -DnewVersion=$CI_COMMIT_REF_NAME'
+    - 'mvn versions:set -DnewVersion=$CI_COMMIT_REF_NAME-SNAPSHOT'
     - 'mvn versions:update-child-modules'
     - 'mvn -DgitVer=git-$CI_COMMIT_SHORT_SHA- clean deploy -s ci_settings.xml'
   artifacts:

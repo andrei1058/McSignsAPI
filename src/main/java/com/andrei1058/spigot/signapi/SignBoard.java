@@ -27,6 +27,8 @@ public interface SignBoard extends Refreshable{
     /**
      * Equals.
      *
+     * @param sign sign.
+     *
      * @return true if the signs have the same location.
      */
     boolean equals(SignBoard sign);
@@ -41,6 +43,8 @@ public interface SignBoard extends Refreshable{
 
     /**
      * Set content provider.
+     *
+     * @param content content function.
      * This function wil be applied to a player when he will request
      * this sign lines. It is useful for language systems.
      */
@@ -55,6 +59,8 @@ public interface SignBoard extends Refreshable{
 
     /**
      * Set click listener.
+     *
+     * @param event listener.
      */
     void setClickListener(SignBoardClickEvent event);
 

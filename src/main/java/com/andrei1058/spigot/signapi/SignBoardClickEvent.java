@@ -9,6 +9,7 @@ public interface SignBoardClickEvent {
      * Handle interact event.
      *
      * @param player player.
+     * @param action click action.
      */
     void onInteract(Player player, Action action);
 }
