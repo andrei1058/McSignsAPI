@@ -4,76 +4,49 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Function;
 
-public class ASign {
+public class ASign implements SignBoard {
 
     private String world = null;
     private Vector loc = null;
-    private ASignEvent event = null;
+    private SignBoardClickEvent event = null;
+    private Function<Player, List<String>> content = null;
+    private SignVersion signVersion;
 
     /**
      * Create a new instance.
      * This is managed internally.
-     * Instantiate {@link SignAPI} and then use {@link SignAPI#createSign(Block)}
+     * Instantiate {@link SignAPI} and then use {@link SignAPI#createSignA(Block)}
      *
-     * @param signBlock block.
+     * @param signBlock   block.
+     * @param signVersion nms support.
      */
-    protected ASign(Block signBlock) {
+    protected ASign(Block signBlock, SignVersion signVersion) {
         if (signBlock == null) return;
         this.world = signBlock.getWorld().getName();
         this.loc = new Vector(signBlock.getX(), signBlock.getY(), signBlock.getZ());
+        this.signVersion = signVersion;
     }
 
-    /**
-     * Get the sign event handler.
-     *
-     * @return handler.
-     */
-    @Nullable
-    public ASignEvent getEvent() {
-        return event;
+    @Override
+    public String getWorld() {
+        return world;
     }
 
-    /**
-     * Set the event handler for this sign.
-     *
-     * @param event target event.
-     */
-    public void setEvent(ASignEvent event) {
-        this.event = event;
+    @Override
+    public Vector getLocation() {
+        return loc;
     }
 
-    /**
-     * Refresh a sign lines.
-     *
-     * @param lines lines to be applied.
-     * @return true if refreshed.
-     */
-    public boolean refresh(String... lines) {
-        World w = Bukkit.getWorld(world);
-        if (w == null) return false;
-        Block b = w.getBlockAt(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
-        if (!equals(b)) return false;
-        Sign s = (Sign) b.getState();
-        for (int x = 0; x < lines.length; x++) {
-            if (x == 4) break;
-            s.setLine(x, lines[x]);
-        }
-        return s.update(true);
-    }
-
-    /**
-     * Set lines.
-     * This will call {@link ASign#refresh(String...)}
-     *
-     * @return instance.
-     */
-    public ASign setLines(String... lines) {
-        refresh(lines);
-        return this;
+    @Override
+    public boolean equals(SignBoard sign) {
+        if (sign == null) return false;
+        return sign.getWorld().equals(getWorld()) && loc.getX() == sign.getLocation().getX() && loc.getY() == sign.getLocation().getY() && loc.getZ() == sign.getLocation().getZ();
     }
 
     /**
@@ -91,5 +64,34 @@ public class ASign {
 
         if (!block.getWorld().getName().equals(world)) return false;
         return loc.getX() == block.getLocation().getX() && loc.getY() == block.getLocation().getY() && loc.getZ() == block.getLocation().getZ();
+    }
+
+    @Override
+    public void setContent(Function<Player, List<String>> content) {
+        this.content = content;
+    }
+
+    @Override
+    public Function<Player, List<String>> getContent() {
+        return content;
+    }
+
+    @Override
+    public void setClickListener(SignBoardClickEvent event) {
+        this.event = event;
+    }
+
+    @Override
+    public SignBoardClickEvent getClickListener() {
+        return event;
+    }
+
+    @Override
+    public void refresh() {
+        World w = Bukkit.getWorld(world);
+        if (w == null) return;
+        for (Player p : w.getPlayers()) {
+            signVersion.update(p, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), getContent().apply(p));
+        }
     }
 }

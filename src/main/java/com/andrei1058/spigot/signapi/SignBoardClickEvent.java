@@ -1,13 +1,14 @@
 package com.andrei1058.spigot.signapi;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 
-public interface ASignEvent {
+public interface SignBoardClickEvent {
 
     /**
      * Handle interact event.
      *
      * @param player player.
      */
-    void onInteract(Player player);
+    void onInteract(Player player, Action action);
 }

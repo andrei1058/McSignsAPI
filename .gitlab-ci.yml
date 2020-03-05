@@ -1,0 +1,28 @@
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+
+image: "maven:latest"
+
+snapshot-job:
+  only:
+    - '/^dev-.*$/'
+  script:
+    - 'mvn versions:set -DnewVersion=$CI_COMMIT_REF_NAME'
+    - 'mvn versions:update-child-modules'
+    - 'mvn -DgitVer=git-$CI_COMMIT_SHORT_SHA- clean deploy -s ci_settings.xml'
+  artifacts:
+    paths:
+      - 'target/*.jar'
+
+release-job:
+  only:
+    - 'tags'
+  script:
+    - 'mvn versions:set -DnewVersion=$CI_COMMIT_TAG'
+    - 'mvn versions:update-child-modules'
+    - 'mvn -DgitVer=git-$CI_COMMIT_SHORT_SHA- clean deploy -s ci_settings.xml'
+  artifacts:
+    paths:
+      - 'target/*.jar'

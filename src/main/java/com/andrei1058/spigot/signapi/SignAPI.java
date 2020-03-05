@@ -11,16 +11,18 @@ import java.util.List;
 
 public class SignAPI {
 
-    private LinkedList<ASign> signs = new LinkedList<>();
+    private LinkedList<SignBoard> signs = new LinkedList<>();
+    private SignVersion signVersion;
 
     /**
      * Initialize the signs lib.
-     * This will register a listener on your plugin so it will handle {@link ASignEvent}.
+     * This will register a listener on your plugin so it will handle {@link SignBoardClickEvent}.
      */
     public SignAPI(Plugin client) {
         if (client != null) {
             Bukkit.getServer().getPluginManager().registerEvents(new SignListener(this), client);
         }
+        signVersion = new v1_8_R3();
     }
 
     /**
@@ -29,8 +31,8 @@ public class SignAPI {
      *
      * @return new {@link ASign} instance.
      */
-    public ASign createSign(Block block) {
-        ASign a = new ASign(block);
+    public ASign createSignA(Block block) {
+        ASign a = new ASign(block, signVersion);
         signs.add(a);
         return a;
     }
@@ -40,7 +42,7 @@ public class SignAPI {
      *
      * @return unmodifiable signs list.
      */
-    public List<ASign> getSigns() {
+    public List<SignBoard> getSigns() {
         return Collections.unmodifiableList(signs);
     }
 
@@ -50,7 +52,7 @@ public class SignAPI {
      * @param sign - sign to be added.
      * @return {@code true} (as specified by {@link Collection#add(Object)})
      */
-    public boolean addSign(ASign sign) {
+    public boolean addSign(SignBoard sign) {
         return signs.add(sign);
     }
 
@@ -60,7 +62,11 @@ public class SignAPI {
      * @param sign - sign to be removed.
      * @return {@code true} (as specified by {@link Collection#remove(Object)})
      */
-    public boolean removeSign(ASign sign) {
+    public boolean removeSign(SignBoard sign) {
         return signs.remove(sign);
+    }
+
+    protected SignVersion getSignVersion() {
+        return signVersion;
     }
 }

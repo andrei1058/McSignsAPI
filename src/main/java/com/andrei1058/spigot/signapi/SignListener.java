@@ -30,11 +30,11 @@ public class SignListener implements Listener {
         if (!e.getClickedBlock().getType().toString().contains("SIGN")) return;
         if (!(e.getClickedBlock().getState() instanceof Sign)) return;
 
-        for (ASign a : api.getSigns()) {
+        for (SignBoard a : api.getSigns()) {
             if (a.equals(e.getClickedBlock())) {
                 e.setCancelled(true);
-                if (a.getEvent() != null) {
-                    a.getEvent().onInteract(e.getPlayer());
+                if (a.getClickListener() != null) {
+                    a.getClickListener().onInteract(e.getPlayer(), e.getAction());
                 }
                 return;
             }

@@ -38,7 +38,7 @@ dependencies {
 
 In order to use this API you simply have to initialize it and then enjoy.
 ```java
-import com.andrei1058.spigot.signapi.SignAPI;import jdk.nashorn.internal.ir.Block;import net.md_5.bungee.api.ChatColor;public class MyPlugin extends JavaPlugin{
+import com.andrei1058.spigot.signapi.SignAPI;import com.andrei1058.spigot.signapi.SignBoard;import jdk.nashorn.internal.ir.Block;import net.md_5.bungee.api.ChatColor;public class MyPlugin extends JavaPlugin{
 
     private static SignAPI signAPI;
         
@@ -53,7 +53,7 @@ import com.andrei1058.spigot.signapi.SignAPI;import jdk.nashorn.internal.ir.Bloc
     // Creating signs
     private void creatingSigns(){
     Block b;
-    ASign as = signAPI.createSign(b).setLines(ChatColor.RED+"Hello", "", ChatColor.BLACK+"andrei1058");
+    SignBoard as = signAPI.createSignA(b).setLines(ChatColor.RED+"Hello", "", ChatColor.BLACK+"andrei1058");
         // on interact event
         as.setEvent((p)-> {
             p.sendMessage("You clicked my sign!");

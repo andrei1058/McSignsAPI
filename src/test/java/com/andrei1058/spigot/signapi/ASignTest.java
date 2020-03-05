@@ -26,13 +26,13 @@ public class ASignTest extends RunListener {
     public void setUp() {
         server = MockBukkit.mock();
         api = new SignAPI(null);
+        WorldMock w = new WorldMock();
+        b = w.createBlock(new Coordinate(5, 5, 5));
     }
 
     @Test
     public void test() {
-        WorldMock w = new WorldMock();
-        b = w.createBlock(new Coordinate(5, 5, 5));
-        api.createSign(b).setEvent((p) -> System.out.println(p.getName() + " clicked on the sign!"));
+        api.createSignA(b).setClickListener((p, a) -> System.out.println(p.getName() + " clicked on the sign: " + a.name()));
 
         SignListener listener = new SignListener(api);
         PlayerMock p = new PlayerMock(server, "andrei1058");
