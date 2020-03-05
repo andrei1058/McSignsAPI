@@ -21,7 +21,7 @@ public class v1_8_R3 extends SignVersion {
         try {
             Object[] lines = new Object[Math.min(strings.size(), 4)];
             for (int f = 0; f < lines.length; f++) {
-                lines[f] = getNMSClass("IChatBaseComponent").getDeclaredClasses()[1].getMethod("a", String.class).invoke(null, "{\"text\": \"" + strings.get(f) + "\"}");
+                lines[f] = getNMSClass("IChatBaseComponent.ChatSerializer").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\": \"" + strings.get(f) + "\"}");
             }
 
             Constructor<?> s = getNMSClass("PacketPlayOutUpdateSign").getConstructor(getNMSClass("World").getDeclaredClasses()[0], getNMSClass("BlockPosition"), Array.newInstance(getNMSClass("IChatBaseComponent"), lines.length).getClass());
