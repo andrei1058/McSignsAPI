@@ -24,7 +24,7 @@ public abstract class SignVersion {
 
     protected Class<?> getNMSClass(String name) {
         try {
-            return Class.forName("net.minecraft.server" + serverVersion + "." + name);
+            return Class.forName("net.minecraft.server." + serverVersion + "." + name);
         } catch (ClassNotFoundException ex) {
             //Do something
         }
