@@ -16,7 +16,6 @@ public class ASign implements SignBoard {
     private Vector loc = null;
     private SignBoardClickEvent event = null;
     private Function<Player, List<String>> content = null;
-    private SignVersion signVersion;
 
     /**
      * Create a new instance.
@@ -24,13 +23,11 @@ public class ASign implements SignBoard {
      * Instantiate {@link SignAPI} and then use {@link SignAPI#createSignA(Block)}
      *
      * @param signBlock   block.
-     * @param signVersion nms support.
      */
-    protected ASign(Block signBlock, SignVersion signVersion) {
+    protected ASign(Block signBlock) {
         if (signBlock == null) return;
         this.world = signBlock.getWorld().getName();
         this.loc = new Vector(signBlock.getX(), signBlock.getY(), signBlock.getZ());
-        this.signVersion = signVersion;
     }
 
     @Override
@@ -91,7 +88,7 @@ public class ASign implements SignBoard {
         World w = Bukkit.getWorld(world);
         if (w == null) return;
         for (Player p : w.getPlayers()) {
-            signVersion.update(p, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), getContent().apply(p));
+            SignAPI.signVersion.update(p, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), getContent().apply(p));
         }
     }
 }

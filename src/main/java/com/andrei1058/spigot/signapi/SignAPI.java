@@ -12,7 +12,7 @@ import java.util.List;
 public class SignAPI {
 
     private LinkedList<SignBoard> signs = new LinkedList<>();
-    private SignVersion signVersion;
+    protected static SignVersion signVersion;
 
     /**
      * Initialize the signs lib.
@@ -22,7 +22,13 @@ public class SignAPI {
         if (client != null) {
             Bukkit.getServer().getPluginManager().registerEvents(new SignListener(this), client);
         }
-        signVersion = new v1_8_R3();
+        if (signVersion == null) {
+            try {
+                signVersion = new v1_8_R3();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -32,7 +38,7 @@ public class SignAPI {
      * @return new {@link ASign} instance.
      */
     public ASign createSignA(Block block) {
-        ASign a = new ASign(block, signVersion);
+        ASign a = new ASign(block);
         signs.add(a);
         return a;
     }
