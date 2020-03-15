@@ -9,16 +9,16 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SignAPI {
+public class SpigotSignAPI {
 
-    private LinkedList<SignBoard> signs = new LinkedList<>();
+    private LinkedList<PacketSign> signs = new LinkedList<>();
     protected static SignVersion signVersion;
 
     /**
      * Initialize the signs lib.
-     * This will register a listener on your plugin so it will handle {@link SignBoardClickEvent}.
+     * This will register a listener on your plugin so it will handle {@link com.andrei1058.spigot.signapi.PacketSign.SignClickEvent}.
      */
-    public SignAPI(Plugin client) {
+    public SpigotSignAPI(Plugin client) {
         if (client != null) {
             Bukkit.getServer().getPluginManager().registerEvents(new SignListener(this), client);
         }
@@ -35,10 +35,10 @@ public class SignAPI {
      * Create a sign at the target block.
      * The block must be already a sign-block.
      *
-     * @return new {@link ASign} instance.
+     * @return new {@link PacketSign} instance.
      */
-    public ASign createSignA(Block block) {
-        ASign a = new ASign(block);
+    public PacketSign createSign(Block block) {
+        PacketSign a = new PacketSign(block);
         signs.add(a);
         return a;
     }
@@ -48,7 +48,7 @@ public class SignAPI {
      *
      * @return unmodifiable signs list.
      */
-    public List<SignBoard> getSigns() {
+    public List<PacketSign> getSigns() {
         return Collections.unmodifiableList(signs);
     }
 
@@ -58,7 +58,7 @@ public class SignAPI {
      * @param sign - sign to be added.
      * @return {@code true} (as specified by {@link Collection#add(Object)})
      */
-    public boolean addSign(SignBoard sign) {
+    public boolean addSign(PacketSign sign) {
         return signs.add(sign);
     }
 
@@ -68,7 +68,7 @@ public class SignAPI {
      * @param sign - sign to be removed.
      * @return {@code true} (as specified by {@link Collection#remove(Object)})
      */
-    public boolean removeSign(SignBoard sign) {
+    public boolean removeSign(PacketSign sign) {
         return signs.remove(sign);
     }
 
