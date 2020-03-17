@@ -1,13 +1,11 @@
 package com.andrei1058.spigot.signapi;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 
 public class SignListener implements Listener {
 
@@ -85,5 +83,19 @@ public class SignListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onJoin(PlayerJoinEvent e){
+        if (e == null) return;
+        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, ()-> {
+            for (PacketSign a : api.getSigns()) {
+                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                    if (a.isInRange(e.getPlayer().getLocation().getBlockX(), e.getPlayer().getLocation().getBlockZ())) {
+                        api.getSignVersion().update(e.getPlayer(), a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ(), a.getContent().apply(e.getPlayer()));
+                    }
+                }
+            }
+        }, 60);
     }
 }
