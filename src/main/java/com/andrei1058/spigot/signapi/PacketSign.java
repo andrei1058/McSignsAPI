@@ -66,7 +66,7 @@ public class PacketSign {
      */
     public boolean equals(PacketSign sign) {
         if (sign == null) return false;
-        return sign.getWorld().equals(getWorld()) && loc.getX() == sign.getLocation().getX() && loc.getY() == sign.getLocation().getY() && loc.getZ() == sign.getLocation().getZ();
+        return sign.getWorld().equals(getWorld()) && loc.getBlockX() == sign.getLocation().getBlockX() && loc.getBlockY() == sign.getLocation().getBlockY() && loc.getBlockZ() == sign.getLocation().getBlockZ();
     }
 
     /**
@@ -83,7 +83,7 @@ public class PacketSign {
         if (loc == null) return false;
 
         if (!block.getWorld().getName().equals(world)) return false;
-        return loc.getX() == block.getLocation().getX() && loc.getY() == block.getLocation().getY() && loc.getZ() == block.getLocation().getZ();
+        return loc.getBlockX() == block.getLocation().getBlockX() && loc.getBlockY() == block.getLocation().getBlockY() && loc.getBlockZ() == block.getLocation().getBlockZ();
     }
 
     /**

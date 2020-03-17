@@ -13,6 +13,7 @@ public class SpigotSignAPI {
 
     private LinkedList<PacketSign> signs = new LinkedList<>();
     protected static SignVersion signVersion;
+    protected Plugin client = null;
 
     /**
      * Initialize the signs lib.
@@ -20,6 +21,7 @@ public class SpigotSignAPI {
      */
     public SpigotSignAPI(Plugin client) {
         if (client != null) {
+            this.client = client;
             Bukkit.getServer().getPluginManager().registerEvents(new SignListener(this), client);
         }
         if (signVersion == null) {
