@@ -62,33 +62,37 @@ public class SignListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onRespawn(PlayerRespawnEvent e) {
         if (e == null) return;
-        for (PacketSign a : api.getSigns()) {
-            if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
-                if (a.isInRange(e.getRespawnLocation().getBlockX(), e.getRespawnLocation().getBlockZ())) {
-                    api.getSignVersion().update(e.getPlayer(), a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ(), a.getContent().apply(e.getPlayer()));
+        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
+            for (PacketSign a : api.getSigns()) {
+                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                    if (a.isInRange(e.getRespawnLocation().getBlockX(), e.getRespawnLocation().getBlockZ())) {
+                        api.getSignVersion().update(e.getPlayer(), a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ(), a.getContent().apply(e.getPlayer()));
+                    }
                 }
             }
-        }
+        }, 80);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onRespawn(PlayerTeleportEvent e) {
+    public void onTP(PlayerTeleportEvent e) {
         if (e == null) return;
         if (e.isCancelled()) return;
         if (e.getTo() == null) return;
-        for (PacketSign a : api.getSigns()) {
-            if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
-                if (a.isInRange(e.getTo().getBlockX(), e.getTo().getBlockZ())) {
-                    api.getSignVersion().update(e.getPlayer(), a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ(), a.getContent().apply(e.getPlayer()));
+        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
+            for (PacketSign a : api.getSigns()) {
+                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                    if (a.isInRange(e.getTo().getBlockX(), e.getTo().getBlockZ())) {
+                        api.getSignVersion().update(e.getPlayer(), a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ(), a.getContent().apply(e.getPlayer()));
+                    }
                 }
             }
-        }
+        }, 80);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e) {
         if (e == null) return;
-        //Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, ()-> {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
                 if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
                     if (a.isInRange(e.getPlayer().getLocation().getBlockX(), e.getPlayer().getLocation().getBlockZ())) {
@@ -96,6 +100,6 @@ public class SignListener implements Listener {
                     }
                 }
             }
-        //}, 60);
+        }, 80);
     }
 }
