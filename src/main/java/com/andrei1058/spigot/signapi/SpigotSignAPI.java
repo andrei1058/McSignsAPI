@@ -14,7 +14,7 @@ public class SpigotSignAPI {
     private LinkedList<PacketSign> signs = new LinkedList<>();
     protected static SignVersion signVersion;
     protected Plugin client = null;
-    protected int delay = 45;
+    protected int delay = 20;
 
     /**
      * Initialize the signs lib.
