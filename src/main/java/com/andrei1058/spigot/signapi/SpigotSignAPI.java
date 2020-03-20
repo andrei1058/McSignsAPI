@@ -14,6 +14,7 @@ public class SpigotSignAPI {
     private LinkedList<PacketSign> signs = new LinkedList<>();
     protected static SignVersion signVersion;
     protected Plugin client = null;
+    protected int delay = 65;
 
     /**
      * Initialize the signs lib.
@@ -74,7 +75,30 @@ public class SpigotSignAPI {
         return signs.remove(sign);
     }
 
+    /**
+     * NMS code.
+     *
+     * @return nms code support.
+     */
     protected SignVersion getSignVersion() {
         return signVersion;
+    }
+
+    /**
+     * Get packets delay.
+     * This is usually used to send packets when a player joins or teleports.
+     *
+     * @return packets delay.
+     */
+    public int getDelay() {
+        return delay;
+    }
+
+    /**
+     * Change packets delay.
+     * This is usually used to send packets when a player joins or teleports.
+     */
+    public void setClient(Plugin client) {
+        this.client = client;
     }
 }

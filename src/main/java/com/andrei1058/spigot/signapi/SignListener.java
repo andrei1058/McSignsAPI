@@ -70,7 +70,7 @@ public class SignListener implements Listener {
                     }
                 }
             }
-        }, 80);
+        }, api.getDelay());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -86,7 +86,7 @@ public class SignListener implements Listener {
                     }
                 }
             }
-        }, 80);
+        }, api.getDelay());
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -100,6 +100,6 @@ public class SignListener implements Listener {
                     }
                 }
             }
-        }, 80);
+        }, api.getDelay());
     }
 }
