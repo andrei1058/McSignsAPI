@@ -16,7 +16,7 @@ Maven
 ```xml
 <dependencies>
     <dependency>
-        <groupId>com.andrei1058.spigot</groupId>
+        <groupId>com.andrei1058.spigot.signapi</groupId>
         <artifactId>signs-api</artifactId>
         <version>0.1</version>
         <scope>compile</scope>

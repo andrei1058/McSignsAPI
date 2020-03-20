@@ -88,7 +88,7 @@ public class SignListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent e){
         if (e == null) return;
-        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, ()-> {
+        //Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, ()-> {
             for (PacketSign a : api.getSigns()) {
                 if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
                     if (a.isInRange(e.getPlayer().getLocation().getBlockX(), e.getPlayer().getLocation().getBlockZ())) {
@@ -96,6 +96,6 @@ public class SignListener implements Listener {
                     }
                 }
             }
-        }, 60);
+        //}, 60);
     }
 }
