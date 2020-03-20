@@ -34,7 +34,6 @@ public class SignListener implements Listener {
 
         for (PacketSign a : api.getSigns()) {
             if (a.equals(e.getClickedBlock())) {
-                e.setCancelled(true);
                 if (a.getClickListener() != null) {
                     a.getClickListener().onInteract(e.getPlayer(), e.getAction());
                 }
