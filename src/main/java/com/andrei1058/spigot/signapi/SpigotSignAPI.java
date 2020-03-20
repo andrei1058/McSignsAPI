@@ -14,7 +14,7 @@ public class SpigotSignAPI {
     private LinkedList<PacketSign> signs = new LinkedList<>();
     protected static SignVersion signVersion;
     protected Plugin client = null;
-    protected int delay = 65;
+    protected int delay = 45;
 
     /**
      * Initialize the signs lib.
@@ -98,7 +98,7 @@ public class SpigotSignAPI {
      * Change packets delay.
      * This is usually used to send packets when a player joins or teleports.
      */
-    public void setClient(Plugin client) {
-        this.client = client;
+    public void setDelay(int delay) {
+        this.delay = delay;
     }
 }
