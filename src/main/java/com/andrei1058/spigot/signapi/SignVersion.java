@@ -28,9 +28,9 @@ public class SignVersion {
 
         for (int x = 0; x < 4; x++) {
             if (strings.size() > x) {
-                lines[0] = strings.get(x);
+                lines[x] = strings.get(x);
             } else {
-                lines[0] = "";
+                lines[x] = "";
             }
         }
 
@@ -48,34 +48,14 @@ public class SignVersion {
 
         for (int x = 0; x < 4; x++) {
             if (strings.size() > x) {
-                lines[0] = strings.get(x);
+                lines[x] = strings.get(x);
             } else {
-                lines[0] = "";
+                lines[x] = "";
             }
         }
 
         for (Player p : players) {
             p.sendSignChange(location, lines);
-        }
-    }
-
-
-    protected Class<?> getNMSClass(String name) {
-        try {
-            return Class.forName("net.minecraft.server." + serverVersion + "." + name);
-        } catch (ClassNotFoundException ex) {
-            //Do something
-        }
-        return null;
-    }
-
-    protected void sendPacket(Player player, Object packet) {
-        try {
-            Object handle = player.getClass().getMethod("getHandle").invoke(player);
-            Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
-            playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
-        } catch (Exception ex) {
-            //Do something
         }
     }
 }
