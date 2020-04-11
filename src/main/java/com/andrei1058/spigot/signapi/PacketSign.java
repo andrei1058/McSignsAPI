@@ -128,11 +128,11 @@ public class PacketSign {
      * Refresh sign for nearby users.
      */
     public void refresh() {
-        World w = Bukkit.getWorld(world);
+        final World w = Bukkit.getWorld(world);
         if (w == null) return;
         for (Player p : w.getPlayers()) {
             if (isInRange(p.getLocation().getBlockX(), p.getLocation().getBlockZ())) {
-                SpigotSignAPI.signVersion.update(p, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ(), getContent().apply(p));
+                SpigotSignAPI.signVersion.update(p, new Location(w, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ()), getContent().apply(p));
             }
         }
     }

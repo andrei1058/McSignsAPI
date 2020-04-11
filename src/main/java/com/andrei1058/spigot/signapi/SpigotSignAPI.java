@@ -26,11 +26,7 @@ public class SpigotSignAPI {
             Bukkit.getServer().getPluginManager().registerEvents(new SignListener(this), client);
         }
         if (signVersion == null) {
-            try {
-                signVersion = new v1_8_R3();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+            signVersion = new SignVersion();
         }
     }
 
