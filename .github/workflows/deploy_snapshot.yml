@@ -2,13 +2,9 @@ name: Deploy with Maven
 
 on:
   push:
-    branches-ignore:
-      - production
+    branches:
       - development
       - master
-  pull_request:
-    branches:
-      - *
 
 jobs:
   build:
@@ -35,5 +31,5 @@ jobs:
           export RES_TITLE=`jq '.title' version.json | tr -d '"'`
           mvn versions:set -DnewVersion=$UPDATE-VERSION-SNAPSHOT
           mvn versions:update-child-modules
-          mvn clean install -s ci_settings.xml
+          mvn clean deploy -s ci_settings.xml
           echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
