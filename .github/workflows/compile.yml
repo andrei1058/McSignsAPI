@@ -33,10 +33,6 @@ jobs:
           mvn clean deploy -s ci_settings.xml
           echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
       - name: "💫  Dynamic Template Render"
-        uses: varunsridharan/action-dynamic-readme@main
-        with:
-          files: |
-            README.md
-          confirm_and_push: false # Important if you use "Require a pull request before merging" rule
+      - uses: bdougie/variables-in-markdown@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

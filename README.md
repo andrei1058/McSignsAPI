@@ -19,6 +19,7 @@ Maven
         <groupId>com.andrei1058.spigot.signapi</groupId>
         <artifactId>signs-api</artifactId>
         <version>${{env.UPDATE_VERSION}}</version>
+        <version>${{UPDATE_VERSION}}</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
