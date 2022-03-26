@@ -50,3 +50,5 @@ jobs:
           files: |
             README.md
           confirm_and_push: false # Important if you use "Require a pull request before merging" rule
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
