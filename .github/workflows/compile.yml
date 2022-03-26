@@ -13,6 +13,8 @@ jobs:
       url: https://repo.andrei1058.dev
     steps:
       - uses: actions/checkout@v2
+      - name: Replace variables in README
+      - uses: bdougie/variables-in-markdown@master
       - name: Set up JDK 17.0.2
         uses: actions/setup-java@v2
         with:
@@ -32,12 +34,3 @@ jobs:
           mvn versions:update-child-modules
           mvn clean deploy -s ci_settings.xml
           echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
-
-  markdown:
-    name: markdown-marker
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: bdougie/variables-in-markdown@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
