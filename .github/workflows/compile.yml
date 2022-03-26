@@ -32,12 +32,6 @@ jobs:
           mvn versions:update-child-modules
           mvn clean deploy -s ci_settings.xml
           echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
-      - name: Create Tag
-        uses: softprops/action-gh-release@v1
-        with:
-          generate_release_notes: true
-          name: ${{env.UPDATE_VERSION}}
-          tag_name: ${{env.UPDATE_VERSION}}
       - name: "💫  Dynamic Template Render"
         uses: varunsridharan/action-dynamic-readme@main
         with:
