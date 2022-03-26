@@ -8,9 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#    environment:
-#      name: production
-#      url: https://repo.andrei1058.dev
+    environment:
+      name: development
+      url: https://repo.andrei1058.dev
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 17.0.2
@@ -22,9 +22,6 @@ jobs:
         env:
           MVN_REPO_USER: ${{ secrets.MVN_REPO_USER }}
           MVN_REPO_PASS: ${{ secrets.MVN_REPO_PASS }}
-#          ANDEV_API_TOKEN: ${{ secrets.ANDEV_API_TOKEN }}
-#          J_DOCS_USER: ${{ secrets.J_DOCS_USER }}
-#          J_DOCS_PASS: ${{ secrets.J_DOCS_PASS }}
           ANDEV_RES_ID: 3
         run: |
           sudo apt install jq -y
