@@ -33,7 +33,8 @@ jobs:
           mvn clean deploy -s ci_settings.xml
           echo "UPDATE_VERSION=$UPDATE_VERSION" >> $GITHUB_ENV
 
-      - uses: bdougie/variables-in-markdown@master
       - name: "💫 Readme Render"
+      - uses: actions/checkout@master
+      - uses: bdougie/variables-in-markdown@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
