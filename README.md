@@ -18,7 +18,7 @@ Maven
     <dependency>
         <groupId>com.andrei1058.spigot.signapi</groupId>
         <artifactId>signs-api</artifactId>
-        <version>0.1</version>
+        <version>${{env.UPDATE_VERSION}}</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
@@ -32,7 +32,7 @@ repositories {
     }
 }
 dependencies {
-    implementation 'com.andrei1058.spigot:signs-api:0.1'
+    implementation 'com.andrei1058.spigot:signs-api:${{UPDATE_VERSION}}'
 }
 ```
 

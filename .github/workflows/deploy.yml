@@ -44,3 +44,9 @@ jobs:
           generate_release_notes: true
           name: ${{env.UPDATE_VERSION}}
           tag_name: ${{env.UPDATE_VERSION}}
+      - name: "💫  Dynamic Template Render"
+        uses: varunsridharan/action-dynamic-readme@main
+        with:
+          files: |
+            README.md
+          confirm_and_push: false # Important if you use "Require a pull request before merging" rule
