@@ -9,7 +9,7 @@ Maven
 <repositories>
     <repository>
         <id>andrei1058-repo</id>
-        <url>https://repo.andrei1058.com/releases/</url>
+        <url>https://repo.andrei1058.dev/releases/</url>
     </repository>
 </repositories>
 ```
@@ -28,7 +28,7 @@ Gradle
 ```gradle
 repositories {
 	maven {
-        url "https://repo.andrei1058.com"
+        url "https://repo.andrei1058.dev"
     }
 }
 dependencies {
