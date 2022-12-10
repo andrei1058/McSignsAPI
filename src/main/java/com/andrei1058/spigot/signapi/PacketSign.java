@@ -1,6 +1,5 @@
 package com.andrei1058.spigot.signapi;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -14,7 +13,7 @@ import java.util.function.Function;
 
 public class PacketSign {
 
-    private String world = null;
+    private World world = null;
     private Vector loc = null;
     private SignClickEvent event = null;
     private Function<Player, List<String>> content = null;
@@ -29,7 +28,7 @@ public class PacketSign {
      */
     protected PacketSign(Block signBlock) {
         if (signBlock == null) return;
-        this.world = signBlock.getWorld().getName();
+        this.world = signBlock.getWorld();
         this.loc = new Vector(signBlock.getX(), signBlock.getY(), signBlock.getZ());
         Location l1 = signBlock.getLocation().clone().add(40, 40, 40),
                 l2 = signBlock.getLocation().clone().subtract(40, 40, 40);
@@ -40,11 +39,11 @@ public class PacketSign {
     }
 
     /**
-     * Get a sign world name.
+     * Get a sign world.
      *
      * @return location.
      */
-    public String getWorld() {
+    public World getWorld() {
         return world;
     }
 
@@ -82,7 +81,7 @@ public class PacketSign {
         if (world == null) return false;
         if (loc == null) return false;
 
-        if (!block.getWorld().getName().equals(world)) return false;
+        if (!block.getWorld().equals(world)) return false;
         return loc.getBlockX() == block.getLocation().getBlockX() && loc.getBlockY() == block.getLocation().getBlockY() && loc.getBlockZ() == block.getLocation().getBlockZ();
     }
 
@@ -128,11 +127,10 @@ public class PacketSign {
      * Refresh sign for nearby users.
      */
     public void refresh() {
-        final World w = Bukkit.getWorld(world);
-        if (w == null) return;
-        for (Player p : w.getPlayers()) {
+        if (world == null) return;
+        for (Player p : world.getPlayers()) {
             if (isInRange(p.getLocation().getBlockX(), p.getLocation().getBlockZ())) {
-                SpigotSignAPI.signVersion.update(p, new Location(w, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ()), getContent().apply(p));
+                SpigotSignAPI.signVersion.update(p, new Location(world, (int) loc.getX(), (int) loc.getY(), (int) loc.getZ()), getContent().apply(p));
             }
         }
     }

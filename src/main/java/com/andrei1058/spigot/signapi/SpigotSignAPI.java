@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SpigotSignAPI {
 
-    private LinkedList<PacketSign> signs = new LinkedList<>();
+    private final LinkedList<PacketSign> signs = new LinkedList<>();
     protected static SignVersion signVersion;
     protected Plugin client = null;
     protected int delay = 20;

@@ -11,7 +11,7 @@ import org.bukkit.event.player.*;
 
 public class SignListener implements Listener {
 
-    private SpigotSignAPI api;
+    private final SpigotSignAPI api;
 
     /**
      * Register signs listener.
@@ -52,7 +52,7 @@ public class SignListener implements Listener {
         if (e.getFrom().getChunk().getX() != e.getTo().getChunk().getX() || e.getFrom().getChunk().getZ() != e.getTo().getChunk().getZ()) {
             final World world = e.getPlayer().getWorld();
             for (PacketSign a : api.getSigns()) {
-                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                if (a.getWorld().equals(world)) {
                     if (a.isInRange(e.getTo().getBlockX(), e.getTo().getBlockZ())) {
                         api.getSignVersion().update(e.getPlayer(), new Location(world, a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ()), a.getContent().apply(e.getPlayer()));
                     }
@@ -67,7 +67,7 @@ public class SignListener implements Listener {
         final World world = e.getPlayer().getWorld();
         Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
-                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                if (a.getWorld().equals(world)) {
                     if (a.isInRange(e.getRespawnLocation().getBlockX(), e.getRespawnLocation().getBlockZ())) {
                         api.getSignVersion().update(e.getPlayer(), new Location(world, a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ()), a.getContent().apply(e.getPlayer()));
                     }
@@ -84,7 +84,7 @@ public class SignListener implements Listener {
         final World world = e.getPlayer().getWorld();
         Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
-                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                if (a.getWorld().equals(world)) {
                     if (a.isInRange(e.getTo().getBlockX(), e.getTo().getBlockZ())) {
                         api.getSignVersion().update(e.getPlayer(), new Location(world, a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ()), a.getContent().apply(e.getPlayer()));
                     }
@@ -99,7 +99,7 @@ public class SignListener implements Listener {
         final World world = e.getPlayer().getWorld();
         Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
-                if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
+                if (a.getWorld().equals(world)) {
                     if (a.isInRange(e.getPlayer().getLocation().getBlockX(), e.getPlayer().getLocation().getBlockZ())) {
                         api.getSignVersion().update(e.getPlayer(), new Location(world, a.getLocation().getBlockX(), a.getLocation().getBlockY(), a.getLocation().getBlockZ()), a.getContent().apply(e.getPlayer()));
                     }
