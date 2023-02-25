@@ -82,7 +82,7 @@ public class SignListener implements Listener {
         if (e.isCancelled()) return;
         if (e.getTo() == null) return;
         final World world = e.getPlayer().getWorld();
-        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
+        Bukkit.getScheduler().runTaskLater(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
                 if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
                     if (a.isInRange(e.getTo().getBlockX(), e.getTo().getBlockZ())) {
