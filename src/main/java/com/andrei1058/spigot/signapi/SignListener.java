@@ -65,7 +65,7 @@ public class SignListener implements Listener {
     public void onRespawn(PlayerRespawnEvent e) {
         if (e == null) return;
         final World world = e.getPlayer().getWorld();
-        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
+        Bukkit.getScheduler().runTaskLater(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
                 if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
                     if (a.isInRange(e.getRespawnLocation().getBlockX(), e.getRespawnLocation().getBlockZ())) {
@@ -97,7 +97,7 @@ public class SignListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         if (e == null) return;
         final World world = e.getPlayer().getWorld();
-        Bukkit.getScheduler().runTaskLaterAsynchronously(api.client, () -> {
+        Bukkit.getScheduler().runTaskLater(api.client, () -> {
             for (PacketSign a : api.getSigns()) {
                 if (a.getWorld().equals(e.getPlayer().getWorld().getName())) {
                     if (a.isInRange(e.getPlayer().getLocation().getBlockX(), e.getPlayer().getLocation().getBlockZ())) {
